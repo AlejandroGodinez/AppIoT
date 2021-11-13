@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 actions: [
                   MaterialButton(
-                    color: Colors.blue,
+                    color: Colors.blue.shade900,
                     textColor: Colors.white,
                     onPressed: () {
                       Navigator.of(context).pop();

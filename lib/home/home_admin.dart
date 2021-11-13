@@ -1,4 +1,5 @@
 import 'package:app_iot/bloc/auth_bloc.dart';
+import 'package:app_iot/sensor_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -64,7 +65,9 @@ class _HomePageState extends State<HomePage> {
                           IconButton(
                               icon: Icon(Icons.print),
                               iconSize: 64.0,
-                              onPressed: () {}),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SensorPageAdmin(zone: "Office",)));
+                              }),
                           Text("Office")
                         ],
                       ),
@@ -80,7 +83,9 @@ class _HomePageState extends State<HomePage> {
                           IconButton(
                               icon: Icon(Icons.restaurant),
                               iconSize: 64.0,
-                              onPressed: () {}),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SensorPageAdmin(zone: "Dinning Room")));
+                              }),
                           Text("Dining Room")
                         ],
                       )
@@ -94,7 +99,9 @@ class _HomePageState extends State<HomePage> {
                           IconButton(
                               icon: Icon(Icons.ring_volume),
                               iconSize: 64.0,
-                              onPressed: () {}),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SensorPageAdmin(zone: "Reception")));
+                              }),
                           Text("Reception")
                         ],
                       ),
@@ -110,7 +117,9 @@ class _HomePageState extends State<HomePage> {
                           IconButton(
                               icon: Icon(Icons.room),
                               iconSize: 64.0,
-                              onPressed: () {}),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SensorPageAdmin(zone: "Conference Room")));
+                              }),
                           Text("Conference"),
                           Text("Room")
                         ],
@@ -125,7 +134,9 @@ class _HomePageState extends State<HomePage> {
                           IconButton(
                               icon: Icon(Icons.videogame_asset),
                               iconSize: 64.0,
-                              onPressed: () {}),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SensorPageAdmin(zone: "Rest Area")));
+                              }),
                           Text("Rest Area")
                         ],
                       )
