@@ -10,6 +10,14 @@ class UserAuthProvider {
     return user != null;
   }
 
+  bool isGoogleLogin() {
+    var user = FirebaseAuth.instance.currentUser;
+    if(user.providerData[0].providerId == 'google.com')
+      return true;
+    else
+      return false;
+  }
+
   Future<void> signOutGoogle() async {
     await _googleSignIn.signOut();
   }
@@ -32,10 +40,6 @@ class UserAuthProvider {
     final googleUser = await _googleSignIn.signIn();
     final googleAuth = await googleUser.authentication;
 
-    print('user: ${googleUser.displayName}');
-    print('user: ${googleUser.email}');
-    print('user: ${googleUser.photoUrl}');
-
     //credenciales para firebase
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
@@ -50,8 +54,6 @@ class UserAuthProvider {
     assert(firebaseAuthToken != null);
     final User currentUser = _auth.currentUser;
     assert(user.uid == currentUser.uid);
-
-    print('Firebase user auth token: $firebaseAuthToken');
   }
 
   //Email and Password

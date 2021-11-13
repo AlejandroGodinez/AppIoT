@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/home');
+                        // Navigator.of(context).pushNamed('/home');
                         _emailLogIn(true);
                       },
                     ),

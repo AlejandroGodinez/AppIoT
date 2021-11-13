@@ -27,8 +27,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield UnAuthState();
     }
     if (event is VerifyAuthenticationEvent) {
-      if (_authProvider.isAlreadyLogged())
-        yield AlreadyAuthState();
+      if (_authProvider.isAlreadyLogged()){
+        if(_authProvider.isGoogleLogin())
+          yield AdminAuthState();
+        else
+          yield NormalAuthState();
+      }
       else
         yield UnAuthState();
     }

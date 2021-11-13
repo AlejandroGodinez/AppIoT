@@ -2,14 +2,14 @@ import 'package:app_iot/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+class HomePageUser extends StatefulWidget {
+  HomePageUser({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageUserState createState() => _HomePageUserState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageUserState extends State<HomePageUser> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
       home: Scaffold(
           appBar: AppBar(
             title: Text(
-              'IOTESO ADMIN',
+              'IOTESO User',
               style: TextStyle(fontSize: 30.0),
             ),
             backgroundColor: Color.fromARGB(255, 0, 70, 127),

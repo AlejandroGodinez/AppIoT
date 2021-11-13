@@ -11,7 +11,12 @@ class AuthInitial extends AuthState {}
 
 class RegisterState extends AuthState {}
 
-class AlreadyAuthState extends AuthState {
+class AdminAuthState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class NormalAuthState extends AuthState {
   @override
   List<Object> get props => [];
 }
