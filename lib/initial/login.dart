@@ -20,16 +20,10 @@ class _LoginPageState extends State<LoginPage> {
   var password = TextEditingController();
 
   void _googleLogIn(bool _) {
-    // invocar al login de firebase con el bloc
-    // recodar configurar pantallad Oauth en google Cloud
-    print("google");
     _loginBloc.add(LoginWithGoogleEvent());
   }
 
   void _emailLogIn(bool _) {
-    // invocar al login de firebase con el bloc
-    // recodar configurar pantallad Oauth en google Cloud
-    print("email and password");
     _loginBloc
         .add(LoginWithEmailEvent(email: email.text, password: password.text));
   }
@@ -48,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
             context: context,
             builder: (_) {
               return AlertDialog(
-                title: Text("Error en inicio de sesion"),
+                title: Text("Could not login"),
                 content: Text(
                   state.error,
                   textAlign: TextAlign.center,
@@ -76,6 +70,14 @@ class _LoginPageState extends State<LoginPage> {
           BlocProvider.of<AuthBloc>(context).add(VerifyAuthenticationEvent());
         }
         return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'IOTESO',
+              style: TextStyle(fontSize: 30.0),
+            ),
+            backgroundColor: Color.fromARGB(255, 0, 70, 127),
+            centerTitle: true,
+          ),
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Center(
@@ -86,22 +88,13 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.1,
                     ),
-                    FractionallySizedBox(
-                      widthFactor: 0.75,
-                      child: Image.asset(
-                        'assets/logo_iteso.jpg',
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                    ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         controller: email,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'User ID',
+                          labelText: 'E-mail',
                           filled: true,
                           fillColor: Colors.white,
                         ),
@@ -117,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                         obscureText: hidePswd,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'Contraseña',
+                          labelText: 'Password',
                           filled: true,
                           fillColor: Colors.white,
                           suffixIcon: IconButton(
@@ -155,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Text(
-                          'Iniciar sesion',
+                          'Login',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ),
@@ -174,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                           Expanded(
                             child: GoogleAuthButton(
                               onPressed: () => _googleLogIn(true),
-                              text: "Iniciar con Google",
+                              text: "Login with Google",
                               darkMode: false,
                             ),
                           ),
@@ -183,15 +176,15 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextButton(
                       onPressed: () {
-                        // BlocProvider.of<AuthBloc>(context)
-                        //     .add(ShowRegisterEvent());
+                        BlocProvider.of<AuthBloc>(context)
+                            .add(ShowRegisterEvent());
                       },
                       child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: '¿No tienes cuenta?',
+                              text: 'Do not have an account?',
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.blue.shade900,
@@ -199,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             TextSpan(
-                              text: '\nRegistrate',
+                              text: '\nRegister',
                               style: TextStyle(
                                   fontSize: 24,
                                   color: Colors.blue.shade900,

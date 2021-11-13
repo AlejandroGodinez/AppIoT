@@ -17,7 +17,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {
-    print("object");
     if (event is SplashScreenEvent) {
       yield AuthInitial();
     }
@@ -28,7 +27,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield UnAuthState();
     }
     if (event is VerifyAuthenticationEvent) {
-      print("entro");
       if (_authProvider.isAlreadyLogged())
         yield AlreadyAuthState();
       else

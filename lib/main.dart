@@ -1,5 +1,7 @@
 import 'package:app_iot/bloc/auth_bloc.dart';
+import 'package:app_iot/home/home_admin.dart';
 import 'package:app_iot/initial/login.dart';
+import 'package:app_iot/initial/register.dart';
 import 'package:app_iot/initial/splashscreen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,17 +33,14 @@ class _MyAppState  extends State<MyApp>{
       title: 'Material App',
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          print(state);
           if (state is AlreadyAuthState) {
-            // return HomePage();
-            return LoginPage();
+            return HomePage();
           }
           if (state is UnAuthState) {
             return LoginPage();
           }
           if (state is RegisterState) {
-            // return RegisterPage();
-            return LoginPage();
+            return RegisterPage();
           }
           return SplashScreenPage();
         },
