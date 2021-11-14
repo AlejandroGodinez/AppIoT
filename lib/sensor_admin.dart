@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SensorPageAdmin extends StatefulWidget {
   final String zone;
@@ -9,6 +12,41 @@ class SensorPageAdmin extends StatefulWidget {
 }
 
 class _SensorPageAdminState extends State<SensorPageAdmin> {
+  String temperature = "";
+  String co2 = "";
+  String humidity = "";
+
+  Future<void> _fetchData() async {
+    var url = Uri.parse(
+        "https://api.thingspeak.com/channels/1560464/feeds.json?api_key=KX2RP9DUGFPJ44P4&results=2");
+
+    while (true) {
+      var res = await http.get(url);
+      Map<String, dynamic> feeds = jsonDecode(res.body);
+      Map<String, dynamic> fields = feeds["feeds"][0];
+      print(fields["field1"]);
+      // "field1":"Temperatura"
+      setState(() {
+        temperature = double.parse(fields["field1"]).toStringAsFixed(1);
+      });
+      // "field4":"CO2"
+      setState(() {
+        co2 = double.parse(fields["field4"]).toStringAsFixed(2);
+      });
+
+      // "field2":"Humedad"
+      setState(() {
+        humidity = double.parse(fields["field2"]).toStringAsFixed(2);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -80,8 +118,9 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
                         padding: const EdgeInsets.all(32.0),
                         child: Column(
                           children: [
-                            Text("Temperature",
+                            Text("Temperature/",
                                 style: TextStyle(fontSize: 32.0)),
+                            Text("Humidity", style: TextStyle(fontSize: 32.0)),
                             SizedBox(
                               height: 10.0,
                             ),
@@ -102,7 +141,30 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
                                                 Colors.white,
                                                 Colors.grey.shade400,
                                               ])),
-                                      child: Text(""),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(temperature + "°C",
+                                                  style: TextStyle(
+                                                      fontSize: 22.0,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(humidity + "g/m3"),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -164,7 +226,23 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
                                                 Colors.white,
                                                 Colors.grey.shade400,
                                               ])),
-                                      child: Text(""),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(co2 + "ppm",
+                                                  style: TextStyle(
+                                                      fontSize: 22.0,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
