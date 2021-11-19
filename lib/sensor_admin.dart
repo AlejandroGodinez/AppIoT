@@ -23,8 +23,21 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
     while (true) {
       var res = await http.get(url);
       Map<String, dynamic> feeds = jsonDecode(res.body);
+      // feeds["feeds"][0] = feeds["feeds"][1];
       Map<String, dynamic> fields = feeds["feeds"][0];
-      print(fields["field1"]);
+
+      // print("feeds:  " + feeds["feeds"][0]["field2"]);
+      // if (fields["field1"] == null) {
+      //   fields["field1"] = feeds["feeds"][1]["field1"];
+      // } else if (fields["field2"] == null) {
+      //   print("entro");
+      //   fields["field2"] = feeds["feeds"][1]["field2"];
+      // } else if (fields["field4"] == null) {
+      //   fields["field4"] = feeds["feeds"][1]["field4"];
+      // }
+
+      // print(feeds);
+
       // "field1":"Temperatura"
       setState(() {
         temperature = double.parse(fields["field1"]).toStringAsFixed(1);
@@ -39,6 +52,42 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
         humidity = double.parse(fields["field2"]).toStringAsFixed(2);
       });
     }
+  }
+
+  Future<void> _writeTempEditPlus() async {
+    var urlString =
+        "https://api.thingspeak.com/update?api_key=EQTYHJ475FLD2ENI&field1=1";
+    var urlPost = Uri.parse(urlString);
+    var resPost = await http.post(urlPost);
+
+    print(jsonDecode(resPost.body));
+  }
+
+  Future<void> _writeTempEditLess() async {
+    var urlString =
+        "https://api.thingspeak.com/update?api_key=EQTYHJ475FLD2ENI&field1=-1";
+    var urlPost = Uri.parse(urlString);
+    var resPost = await http.post(urlPost);
+
+    print(jsonDecode(resPost.body));
+  }
+
+  Future<void> _writeCo2EditPlus() async {
+    var urlString =
+        "https://api.thingspeak.com/update?api_key=EQTYHJ475FLD2ENI&field2=1";
+    var urlPost = Uri.parse(urlString);
+    var resPost = await http.post(urlPost);
+
+    print(jsonDecode(resPost.body));
+  }
+
+  Future<void> _writeCo2EditLess() async {
+    var urlString =
+        "https://api.thingspeak.com/update?api_key=EQTYHJ475FLD2ENI&field2=-1";
+    var urlPost = Uri.parse(urlString);
+    var resPost = await http.post(urlPost);
+
+    print(jsonDecode(resPost.body));
   }
 
   @override
@@ -173,14 +222,23 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
                                 ),
                                 Column(
                                   children: [
-                                    Icon(
-                                      Icons.arrow_circle_up,
-                                      size: 50.0,
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.arrow_circle_up,
+                                        size: 50.0,
+                                      ),
+                                      onPressed: () {
+                                        _writeTempEditPlus();
+                                      },
                                     ),
-                                    Icon(
-                                      Icons.arrow_circle_down,
-                                      size: 50.0,
-                                    )
+                                    IconButton(
+                                        onPressed: () {
+                                          _writeTempEditLess();
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_circle_down,
+                                          size: 50.0,
+                                        ))
                                   ],
                                 )
                               ],
@@ -251,14 +309,23 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
                                 ),
                                 Column(
                                   children: [
-                                    Icon(
-                                      Icons.arrow_circle_up,
-                                      size: 50.0,
+                                    IconButton(
+                                      onPressed: () {
+                                        _writeCo2EditPlus();
+                                      },
+                                      icon: Icon(
+                                        Icons.arrow_circle_up,
+                                        size: 50.0,
+                                      ),
                                     ),
-                                    Icon(
-                                      Icons.arrow_circle_down,
-                                      size: 50.0,
-                                    )
+                                    IconButton(
+                                        onPressed: () {
+                                          _writeCo2EditLess();
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_circle_down,
+                                          size: 50.0,
+                                        ))
                                   ],
                                 )
                               ],

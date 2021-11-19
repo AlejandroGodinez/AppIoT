@@ -24,7 +24,7 @@ class _SensorPageUserState extends State<SensorPageUser> {
       var res = await http.get(url);
       Map<String, dynamic> feeds = jsonDecode(res.body);
       Map<String, dynamic> fields = feeds["feeds"][0];
-      print(fields["field1"]);
+      print(feeds);
       // "field1":"Temperatura"
       setState(() {
         temperature = double.parse(fields["field1"]).toStringAsFixed(1);
