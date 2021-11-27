@@ -13,7 +13,7 @@ class SensorPageAdmin extends StatefulWidget {
 
 class _SensorPageAdminState extends State<SensorPageAdmin> {
   String temperature = "";
-  String co2 = "";
+  String co2 = "0.00";
   String humidity = "";
 
   Future<void> _fetchData() async {
@@ -24,7 +24,7 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
       var res = await http.get(url);
       Map<String, dynamic> feeds = jsonDecode(res.body);
       // feeds["feeds"][0] = feeds["feeds"][1];
-      Map<String, dynamic> fields = feeds["feeds"][0];
+      Map<String, dynamic> fields = feeds["feeds"][1];
 
       // print("feeds:  " + feeds["feeds"][0]["field2"]);
       // if (fields["field1"] == null) {
@@ -36,16 +36,16 @@ class _SensorPageAdminState extends State<SensorPageAdmin> {
       //   fields["field4"] = feeds["feeds"][1]["field4"];
       // }
 
-      // print(feeds);
+      print(feeds);
 
       // "field1":"Temperatura"
       setState(() {
         temperature = double.parse(fields["field1"]).toStringAsFixed(1);
       });
-      // "field4":"CO2"
-      setState(() {
-        co2 = double.parse(fields["field4"]).toStringAsFixed(2);
-      });
+      // // "field4":"CO2"
+      // setState(() {
+      //   co2 = double.parse(fields["field4"]).toStringAsFixed(2);
+      // });
 
       // "field2":"Humedad"
       setState(() {

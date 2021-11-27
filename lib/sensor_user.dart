@@ -13,7 +13,7 @@ class SensorPageUser extends StatefulWidget {
 
 class _SensorPageUserState extends State<SensorPageUser> {
   String temperature = "";
-  String co2 = "";
+  String co2 = "0.00";
   String humidity = "";
 
   Future<void> _fetchData() async {
@@ -30,9 +30,9 @@ class _SensorPageUserState extends State<SensorPageUser> {
         temperature = double.parse(fields["field1"]).toStringAsFixed(1);
       });
       // "field4":"CO2"
-      setState(() {
-        co2 = double.parse(fields["field4"]).toStringAsFixed(2);
-      });
+      // setState(() {
+      //   co2 = double.parse(fields["field4"]).toStringAsFixed(2);
+      // });
 
       // "field2":"Humedad"
       setState(() {
